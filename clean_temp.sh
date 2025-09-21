@@ -12,16 +12,22 @@ countFiles=$(find /tmp -type f | wc -l)
 
 #display the amount and files with more seven days
 echo "El directorio /tmp actuamente tiene $countFiles archivos temporales"
-echo "De los $countFiles estos archivos tienen mas de $days"
 files=$(find /tmp -type f -mtime +$days)
-echo $files
 
-#Clean the files
-echo "Se procede con la limpieza de los archivos.."
-for file in $files
-do
+if [ -z "$files" ]; then
+  echo "No hay archivos que limpiar"
+else
+   echo "Lista de archivos que tienen mas de $days"
+   echo "$files"
+   #Clean the files
+   echo "Se procede con la limpieza de los archivos.."
+   for file in $files
+    do
 	rm $file
-done
+    done
+fi
+
+
 
 
 
